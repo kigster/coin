@@ -1,9 +1,9 @@
-require "drb/drb"
-require "rbconfig"
-require "forwardable"
+require 'drb/drb'
+require 'rbconfig'
+require 'forwardable'
 
-Dir[File.join(File.dirname(__FILE__), "coin", "*.rb")].each do |file|
-  require file
+Dir[File.join(File.dirname(__FILE__), 'coin', '*.rb')].each do |file|
+  require(file)
 end
 
 module Coin
@@ -27,7 +27,7 @@ module Coin
 
     attr_writer :uri
     def uri
-      @uri ||= "druby://localhost:#{port}"
+      @uri ||= "druby://127.0.0.1:#{port}"
     end
 
     attr_reader :remote_uri

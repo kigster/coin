@@ -1,5 +1,5 @@
-require File.expand_path("../test_helper", __FILE__)
-require "securerandom"
+require_relative 'test_helper'
+require 'securerandom'
 
 class VaultTest < PryTest::Test
 
@@ -8,17 +8,17 @@ class VaultTest < PryTest::Test
     @key = "key-#{SecureRandom.uuid}"
   end
 
-  test "read using an unstored key" do
+  test 'read using an unstored key' do
     assert @vault.read(@key).nil?
   end
 
-  test "basic write & read" do
+  test 'basic write & read' do
     value = rand(999999999)
     @vault.write(@key, value)
     assert @vault.read(@key) == value
   end
 
-  test "read_and_delete" do
+  test 'read_and_delete' do
     value = rand(999999999)
     @vault.write(@key, value)
     val = @vault.read_and_delete(@key)
@@ -26,7 +26,7 @@ class VaultTest < PryTest::Test
     assert val == value
   end
 
-  test "read_and_write" do
+  test 'read_and_write' do
     orig_value = rand(999999999)
     value = nil
     @vault.write(@key, orig_value)
@@ -38,14 +38,14 @@ class VaultTest < PryTest::Test
     assert @vault.read(@key) == value
   end
 
-  test "delete" do
+  test 'delete' do
     @vault.write(@key, true)
     assert @vault.read(@key)
     @vault.delete(@key)
     assert @vault.read(@key).nil?
   end
 
-  test "clear" do
+  test 'clear' do
     10.times { |i| @vault.write("key#{i}", true) }
     assert @vault.length >= 10
     @vault.clear
